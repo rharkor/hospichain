@@ -1,0 +1,25 @@
+{
+  "name": "contracts",
+  "scripts": {
+    "test": "hardhat test",
+    "compile": "hardhat compile",
+    "typechain": "hardhat typechain",
+    "deploy": "hardhat run scripts/deploy.ts",
+    "deploy:mumbai": "hardhat run scripts/deploy.ts --network mumbai",
+    "deploy:polygon": "hardhat run scripts/deploy.ts --network polygon"
+  },
+  "dependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "@nomicfoundation/hardhat-toolbox-viem": "^2.0.0",
+    "@openzeppelin/contracts": "^5.0.0",
+    "@types/inquirer": "^9.0.7",
+    "hardhat": "^2.19.1",
+    "hardhat-abi-exporter": "^2.10.1",
+    "inquirer": "^9.2.12"
+  },
+  "devDependencies": {
+    "@typechain/ethers-v6": "^0.5.1",
+    "@typechain/hardhat": "^9.1.0",
+    "typechain": "^8.3.2"
+  }
+}
