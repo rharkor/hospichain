@@ -2,7 +2,6 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter"
 import { NextAuthOptions, Session } from "next-auth"
 import { Provider } from "next-auth/providers"
 import Credentials from "next-auth/providers/credentials"
-import GithubProvider from "next-auth/providers/github"
 import requestIp from "request-ip"
 import { z } from "zod"
 import { randomUUID } from "crypto"
@@ -115,10 +114,6 @@ export const providers: Provider[] = [
         hasPassword: user.hasPassword,
       }
     },
-  }),
-  GithubProvider({
-    clientId: env.GITHUB_CLIENT_ID,
-    clientSecret: env.GITHUB_CLIENT_SECRET,
   }),
 ]
 
