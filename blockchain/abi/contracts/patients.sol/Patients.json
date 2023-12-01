@@ -11,6 +11,76 @@
     "type": "constructor"
   },
   {
+    "inputs": [
+      {
+        "components": [
+          {
+            "internalType": "string",
+            "name": "lastnames",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "firstnames",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "age",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "nationality",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "email",
+            "type": "string"
+          },
+          {
+            "internalType": "bool",
+            "name": "alive",
+            "type": "bool"
+          },
+          {
+            "internalType": "uint256",
+            "name": "referringDoctor",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256[]",
+            "name": "exams",
+            "type": "uint256[]"
+          },
+          {
+            "internalType": "uint256[]",
+            "name": "operations",
+            "type": "uint256[]"
+          },
+          {
+            "internalType": "uint256[]",
+            "name": "treatements",
+            "type": "uint256[]"
+          },
+          {
+            "internalType": "uint256",
+            "name": "dead",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct Patients.Patient",
+        "name": "newPatient",
+        "type": "tuple"
+      }
+    ],
+    "name": "addPatient",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
     "inputs": [],
     "name": "patientCount",
     "outputs": [

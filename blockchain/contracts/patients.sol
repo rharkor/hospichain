@@ -32,4 +32,12 @@ contract Patients {
       revert("You are not a MANAGER");
     }
   }
+
+  function addPatient(Patient memory newPatient) public {
+      if (!roleManager.hasRole(roleManager.MANAGER_ROLE(), msg.sender)) {
+         revert("You are not a MANAGER");
+      }
+      patientCount++;
+      patients[patientCount] = newPatient;
+  }
 }
