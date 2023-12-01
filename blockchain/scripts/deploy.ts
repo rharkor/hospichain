@@ -1,26 +1,33 @@
-import { formatEther, parseEther } from "viem";
-import hre from "hardhat";
+import hre from "hardhat"
+import inquirer from "inquirer"
+
+async function deployRoleManager() {
+  const RoleManager = await hre.ethers.getContractFactory("RoleManager")
+  const roleManager = await RoleManager.deploy()
+  await roleManager.waitForDeployment()
+  console.log("RoleManager deployed to:", await roleManager.getAddress())
+}
 
 async function main() {
-  const currentTimestampInSeconds = Math.round(Date.now() / 1000);
-  const unlockTime = BigInt(currentTimestampInSeconds + 60);
+  const res = await inquirer.prompt([
+    {
+      name: "which",
+      type: "list",
+      message: "Which contract to deploy?",
+      choices: ["RoleManager"],
+    },
+  ])
 
-  const lockedAmount = parseEther("0.001");
-
-  const lock = await hre.viem.deployContract("Lock", [unlockTime], {
-    value: lockedAmount,
-  });
-
-  console.log(
-    `Lock with ${formatEther(
-      lockedAmount
-    )}ETH and unlock timestamp ${unlockTime} deployed to ${lock.address}`
-  );
+  if (res.which === "RoleManager") {
+    await deployRoleManager()
+  } else {
+    console.log("Not implemented")
+  }
 }
 
 // We recommend this pattern to be able to use async/await everywhere
 // and properly handle errors.
 main().catch((error) => {
-  console.error(error);
-  process.exitCode = 1;
-});
+  console.error(error)
+  process.exitCode = 1
+})
