@@ -1,28 +1,35 @@
 // SPDX-License-Identifier: UNLICENSED
-pragma solidity ^0.8.9;
+pragma solidity ^0.8.20;
 
-// Uncomment this line to use console.log
-// import "hardhat/console.sol";
+import "./role-manager.sol";
 
 contract Patients {
-   
-   struct Patient {
-    lastnames: string,
-    firstnames: string,
-    age: uint
-    nationality: string,
-    email: string,
-    alive: bool,
-    referring doctor: uint,
-    exams: uint[],
-    operations: uint[],
-    treatements: uint[],
-    dead: uint
-   }
+  RoleManager roleManager;
 
-   mapping (uint => Patient) public patients;
+  struct Patient {
+    string lastnames;
+    string firstnames;
+    uint age;
+    string nationality;
+    string email;
+    bool alive;
+    uint referringDoctor;
+    uint[] exams;
+    uint[] operations;
+    uint[] treatements;
+    uint dead;
+  }
 
-   uint public patientCount;
+  mapping(uint => Patient) public patients;
+  uint public patientCount;
 
-   function addPatient {}
+  constructor(address roleManagerAddress) {
+    roleManager = RoleManager(roleManagerAddress);
+  }
+
+  function test() public view {
+    if (!roleManager.hasRole(roleManager.MANAGER_ROLE(), msg.sender)) {
+      revert("You are not a MANAGER");
+    }
+  }
 }
