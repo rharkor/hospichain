@@ -12,10 +12,10 @@
     "@nomicfoundation/hardhat-toolbox": "^4.0.0",
     "@nomicfoundation/hardhat-toolbox-viem": "^2.0.0",
     "@openzeppelin/contracts": "^5.0.0",
-    "@types/inquirer": "^8.2.10",
+    "@types/inquirer": "^9.0.0",
     "hardhat": "^2.19.1",
     "hardhat-abi-exporter": "^2.10.1",
-    "inquirer": "^8.2.6",
+    "inquirer": "^9.0.0",
     "viem": "^1.19.11"
   },
   "devDependencies": {
