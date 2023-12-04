@@ -31,20 +31,27 @@ contract Patients is AccessControl {
     roleManager = RoleManager(roleManagerAddress);
   }
 
+  modifier onlyManager() {
+    require(roleManager.hasRole(roleManager.MANAGER_ROLE(), msg.sender), "Caller is not a manager");
+    _;
+  }
+
   modifier onlyAdmin() {
     require(hasRole(DEFAULT_ADMIN_ROLE, msg.sender), "Caller is not an admin");
     _;
   }
 
-  function addPatient(Patient memory newPatient) public {
-    if (!roleManager.hasRole(roleManager.MANAGER_ROLE(), msg.sender)) {
-      revert("You are not a MANAGER");
-    }
+  function addPatient(Patient memory newPatient) public onlyManager {
     patientCount++;
     patients[patientCount] = newPatient;
   }
 
   function getPatients(uint offset, uint limit) public view returns (Patient[] memory) {
+    require(
+      roleManager.hasRole(roleManager.MANAGER_ROLE(), msg.sender) ||
+        roleManager.hasRole(roleManager.PRATICIEN_ROLE(), msg.sender),
+      "Caller is not a manager or a praticien"
+    );
     require(offset <= patientCount, "Offset is out of range");
     limit = limit > maxLimit ? maxLimit : limit;
     limit = limit > patientCount ? patientCount : limit;
