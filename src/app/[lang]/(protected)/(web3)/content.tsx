@@ -4,11 +4,10 @@ import { Button } from "@nextui-org/react"
 import { useEffect, useState } from "react"
 import { useAccount, useContractRead } from "wagmi"
 import { useWeb3Role } from "@/contexts/web3role/utils"
-import { TDictionary } from "@/lib/langs"
 import roleAbi from "blockchain/abi/contracts/role-manager.sol/RoleManager.json"
 import { env } from "env.mjs"
 
-export default function HomeContent({ dictionary }: { dictionary: TDictionary }) {
+export default function HomeContent() {
   const { roles, isLoaded } = useWeb3Role()
   const { address } = useAccount()
   const [isMounted, setIsMounted] = useState(false)
