@@ -60,6 +60,8 @@ export const env = createEnv({
     NEXT_PUBLIC_DEMO_PASSWORD: z.string().optional(),
     NEXT_PUBLIC_AWS_ENDPOINT: z.string().optional(),
     NEXT_PUBLIC_AWS_BUCKET_NAME: z.string().optional(),
+    NEXT_PUBLIC_ROLE_MANAGER: z.string().min(1),
+    NEXT_PUBLIC_PATIENTS: z.string().min(1),
   },
   runtimeEnv: {
     ANALYZE: process.env.ANALYZE,
@@ -97,6 +99,8 @@ export const env = createEnv({
     AWS_SECRET_ACCESS_KEY: process.env.AWS_SECRET_ACCESS_KEY,
     NEXT_PUBLIC_AWS_ENDPOINT: process.env.NEXT_PUBLIC_AWS_ENDPOINT,
     ENABLE_S3_SERVICE: process.env.ENABLE_S3_SERVICE,
+    NEXT_PUBLIC_ROLE_MANAGER: process.env.NEXT_PUBLIC_ROLE_MANAGER,
+    NEXT_PUBLIC_PATIENTS: process.env.NEXT_PUBLIC_PATIENTS,
   },
   onValidationError: (error) => {
     console.error(error)

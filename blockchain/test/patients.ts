@@ -8,9 +8,9 @@ describe("Patients", function () {
 
     const roleManager = await hre.viem.deployContract("RoleManager")
 
-    await roleManager.write.addManager([manager1.account.address])
-    await roleManager.write.addPraticien([praticien1.account.address])
-    await roleManager.write.addPraticien([praticien2.account.address])
+    await roleManager.write.addManager([manager1.account.address, "Jean Dupont", "jdupont@mail.com"])
+    await roleManager.write.addPraticien([praticien1.account.address, "Michel Martin", "mmartin@mail.com"])
+    await roleManager.write.addPraticien([praticien2.account.address, "Jeanne Durand", "jdurand@mail.com"])
 
     const patients = await hre.viem.deployContract("Patients", [roleManager.address])
 

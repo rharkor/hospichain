@@ -1,0 +1,122 @@
+[
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "roleManagerAddress",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "inputs": [],
+    "name": "PracticienCount",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "components": [
+          {
+            "internalType": "string",
+            "name": "lastname",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "firstname",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "email",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "societe",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "debut",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "status",
+            "type": "string"
+          }
+        ],
+        "internalType": "struct Praticiens.Praticien",
+        "name": "newPraticien",
+        "type": "tuple"
+      }
+    ],
+    "name": "addPracticien",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "practiciens",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "lastname",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "firstname",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "email",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "societe",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "debut",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "status",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "test",
+    "outputs": [],
+    "stateMutability": "view",
+    "type": "function"
+  }
+]

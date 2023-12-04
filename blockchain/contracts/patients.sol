@@ -1,10 +1,13 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.20;
 
+import "@openzeppelin/contracts/access/AccessControl.sol";
 import "./role-manager.sol";
 
-contract Patients {
+contract Patients is AccessControl {
   RoleManager roleManager;
+
+  uint public maxLimit = 100;
 
   struct Patient {
     string lastnames;
@@ -24,20 +27,35 @@ contract Patients {
   uint public patientCount;
 
   constructor(address roleManagerAddress) {
+    _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
     roleManager = RoleManager(roleManagerAddress);
   }
 
-  function test() public view {
-    if (!roleManager.hasRole(roleManager.MANAGER_ROLE(), msg.sender)) {
-      revert("You are not a MANAGER");
-    }
+  modifier onlyAdmin() {
+    require(hasRole(DEFAULT_ADMIN_ROLE, msg.sender), "Caller is not an admin");
+    _;
   }
 
   function addPatient(Patient memory newPatient) public {
-      if (!roleManager.hasRole(roleManager.MANAGER_ROLE(), msg.sender)) {
-         revert("You are not a MANAGER");
-      }
-      patientCount++;
-      patients[patientCount] = newPatient;
+    if (!roleManager.hasRole(roleManager.MANAGER_ROLE(), msg.sender)) {
+      revert("You are not a MANAGER");
+    }
+    patientCount++;
+    patients[patientCount] = newPatient;
+  }
+
+  function getPatients(uint offset, uint limit) public view returns (Patient[] memory) {
+    require(offset <= patientCount, "Offset is out of range");
+    limit = limit > maxLimit ? maxLimit : limit;
+    limit = limit > patientCount ? patientCount : limit;
+    Patient[] memory _patients = new Patient[](limit);
+    for (uint i = offset; i < offset + limit; i++) {
+      _patients[i - offset] = patients[i + 1];
+    }
+    return _patients;
+  }
+
+  function setRoleManager(address roleManagerAddress) public onlyAdmin {
+    roleManager = RoleManager(roleManagerAddress);
   }
 }
