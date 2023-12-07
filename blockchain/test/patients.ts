@@ -1,4 +1,5 @@
 import { loadFixture } from "@nomicfoundation/hardhat-toolbox-viem/network-helpers"
+import { expect } from "chai"
 import hre from "hardhat"
 
 describe("Patients", function () {
@@ -17,6 +18,7 @@ describe("Patients", function () {
     const publicClient = await hre.viem.getPublicClient()
 
     return {
+      roleManager,
       patients,
       owner,
       manager1,
@@ -30,6 +32,42 @@ describe("Patients", function () {
   describe("Deployment", function () {
     it("Should deploy correctly", async function () {
       await loadFixture(deploy)
+    })
+
+    it("Should have the correct owner", async function () {
+      const { patients, owner } = await loadFixture(deploy)
+
+      expect(await patients.read.hasRole([await patients.read.DEFAULT_ADMIN_ROLE(), owner.account.address])).to.equal(
+        true
+      )
+    })
+  })
+
+  describe("Patients", function () {
+    it("Should add a patient", async function () {
+      const { roleManager, patients, owner, manager1, account5, praticien1 } = await loadFixture(deploy)
+
+      const newPatient = {
+        lastnames: "Dupont",
+        firstnames: "Jean",
+        age: 42,
+        nationality: "French",
+        email: "jdupont@mail.com",
+        alive: true,
+        referringDoctor: 0,
+        exams: [],
+        operations: [],
+        treatements: [],
+        dead: 0,
+      }
+
+      await patients.write.addPatient([newPatient], {
+        account: manager1.account.address,
+      })
+
+      await expect(patients.write.addPatient([newPatient], { account: owner.account.address })).to.be.rejectedWith(
+        "Caller is not a manager"
+      )
     })
   })
 })

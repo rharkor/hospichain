@@ -177,7 +177,7 @@ export default function PatientsContent() {
                       ? item[columnKey]
                         ? "Yes"
                         : "No"
-                      : columnKey === "age"
+                      : columnKey === "age" || columnKey === "referringDoctor"
                         ? item[columnKey].toString()
                         : getKeyValue(item, columnKey)}
                   </TableCell>

@@ -120,71 +120,59 @@
     "type": "function"
   },
   {
+    "inputs": [],
+    "name": "ExamCount",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [
       {
         "components": [
           {
             "internalType": "string",
-            "name": "lastnames",
+            "name": "speciality",
             "type": "string"
           },
           {
             "internalType": "string",
-            "name": "firstnames",
+            "name": "exam_type",
             "type": "string"
           },
           {
             "internalType": "uint256",
-            "name": "age",
+            "name": "prescriber",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "date",
             "type": "uint256"
           },
           {
             "internalType": "string",
-            "name": "nationality",
+            "name": "reason",
             "type": "string"
           },
           {
-            "internalType": "string",
-            "name": "email",
-            "type": "string"
-          },
-          {
-            "internalType": "bool",
-            "name": "alive",
-            "type": "bool"
-          },
-          {
             "internalType": "uint256",
-            "name": "referringDoctor",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256[]",
-            "name": "exams",
-            "type": "uint256[]"
-          },
-          {
-            "internalType": "uint256[]",
-            "name": "operations",
-            "type": "uint256[]"
-          },
-          {
-            "internalType": "uint256[]",
-            "name": "treatements",
-            "type": "uint256[]"
-          },
-          {
-            "internalType": "uint256",
-            "name": "dead",
+            "name": "results",
             "type": "uint256"
           }
         ],
-        "internalType": "struct Patients.Patient",
-        "name": "newPatient",
+        "internalType": "struct Exams.Exam",
+        "name": "newExam",
         "type": "tuple"
       }
     ],
-    "name": "addPatient",
+    "name": "addExam",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -193,78 +181,41 @@
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "offset",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "exams",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "speciality",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "exam_type",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "prescriber",
         "type": "uint256"
       },
       {
         "internalType": "uint256",
-        "name": "limit",
+        "name": "date",
         "type": "uint256"
-      }
-    ],
-    "name": "getPatients",
-    "outputs": [
+      },
       {
-        "components": [
-          {
-            "internalType": "string",
-            "name": "lastnames",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "firstnames",
-            "type": "string"
-          },
-          {
-            "internalType": "uint256",
-            "name": "age",
-            "type": "uint256"
-          },
-          {
-            "internalType": "string",
-            "name": "nationality",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "email",
-            "type": "string"
-          },
-          {
-            "internalType": "bool",
-            "name": "alive",
-            "type": "bool"
-          },
-          {
-            "internalType": "uint256",
-            "name": "referringDoctor",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256[]",
-            "name": "exams",
-            "type": "uint256[]"
-          },
-          {
-            "internalType": "uint256[]",
-            "name": "operations",
-            "type": "uint256[]"
-          },
-          {
-            "internalType": "uint256[]",
-            "name": "treatements",
-            "type": "uint256[]"
-          },
-          {
-            "internalType": "uint256",
-            "name": "dead",
-            "type": "uint256"
-          }
-        ],
-        "internalType": "struct Patients.Patient[]",
-        "name": "",
-        "type": "tuple[]"
+        "internalType": "string",
+        "name": "reason",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "results",
+        "type": "uint256"
       }
     ],
     "stateMutability": "view",
@@ -326,86 +277,6 @@
         "internalType": "bool",
         "name": "",
         "type": "bool"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "maxLimit",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [],
-    "name": "patientCount",
-    "outputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "name": "patients",
-    "outputs": [
-      {
-        "internalType": "string",
-        "name": "lastnames",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
-        "name": "firstnames",
-        "type": "string"
-      },
-      {
-        "internalType": "uint256",
-        "name": "age",
-        "type": "uint256"
-      },
-      {
-        "internalType": "string",
-        "name": "nationality",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
-        "name": "email",
-        "type": "string"
-      },
-      {
-        "internalType": "bool",
-        "name": "alive",
-        "type": "bool"
-      },
-      {
-        "internalType": "uint256",
-        "name": "referringDoctor",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "dead",
-        "type": "uint256"
       }
     ],
     "stateMutability": "view",
@@ -480,89 +351,51 @@
     "type": "function"
   },
   {
-    "inputs": [],
-    "name": "test",
-    "outputs": [
-      {
-        "internalType": "address",
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "id",
+        "name": "examId",
         "type": "uint256"
       },
       {
         "components": [
           {
             "internalType": "string",
-            "name": "lastnames",
+            "name": "speciality",
             "type": "string"
           },
           {
             "internalType": "string",
-            "name": "firstnames",
+            "name": "exam_type",
             "type": "string"
           },
           {
             "internalType": "uint256",
-            "name": "age",
+            "name": "prescriber",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "date",
             "type": "uint256"
           },
           {
             "internalType": "string",
-            "name": "nationality",
+            "name": "reason",
             "type": "string"
           },
           {
-            "internalType": "string",
-            "name": "email",
-            "type": "string"
-          },
-          {
-            "internalType": "bool",
-            "name": "alive",
-            "type": "bool"
-          },
-          {
             "internalType": "uint256",
-            "name": "referringDoctor",
-            "type": "uint256"
-          },
-          {
-            "internalType": "uint256[]",
-            "name": "newExams",
-            "type": "uint256[]"
-          },
-          {
-            "internalType": "uint256[]",
-            "name": "newOperations",
-            "type": "uint256[]"
-          },
-          {
-            "internalType": "uint256[]",
-            "name": "newTreatements",
-            "type": "uint256[]"
-          },
-          {
-            "internalType": "uint256",
-            "name": "dead",
+            "name": "results",
             "type": "uint256"
           }
         ],
-        "internalType": "struct Patients.UpdatePatient",
-        "name": "newPatient",
+        "internalType": "struct Exams.Exam",
+        "name": "updatedExam",
         "type": "tuple"
       }
     ],
-    "name": "updatePatient",
+    "name": "updateExam",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

@@ -121,7 +121,7 @@
   },
   {
     "inputs": [],
-    "name": "PracticienCount",
+    "name": "ResultCount",
     "outputs": [
       {
         "internalType": "uint256",
@@ -138,41 +138,26 @@
         "components": [
           {
             "internalType": "string",
-            "name": "lastname",
+            "name": "name",
             "type": "string"
           },
           {
             "internalType": "string",
-            "name": "firstname",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "email",
+            "name": "description",
             "type": "string"
           },
           {
             "internalType": "uint256",
-            "name": "societe",
+            "name": "date",
             "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "debut",
-            "type": "uint256"
-          },
-          {
-            "internalType": "string",
-            "name": "status",
-            "type": "string"
           }
         ],
-        "internalType": "struct Praticiens.Praticien",
-        "name": "newPraticien",
+        "internalType": "struct Results.Result",
+        "name": "newResult",
         "type": "tuple"
       }
     ],
-    "name": "addPracticien",
+    "name": "addResult",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -241,50 +226,6 @@
   {
     "inputs": [
       {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "name": "practiciens",
-    "outputs": [
-      {
-        "internalType": "string",
-        "name": "lastname",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
-        "name": "firstname",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
-        "name": "email",
-        "type": "string"
-      },
-      {
-        "internalType": "uint256",
-        "name": "societe",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "debut",
-        "type": "uint256"
-      },
-      {
-        "internalType": "string",
-        "name": "status",
-        "type": "string"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
         "internalType": "bytes32",
         "name": "role",
         "type": "bytes32"
@@ -298,6 +239,35 @@
     "name": "renounceRole",
     "outputs": [],
     "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "results",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "name",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "description",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "date",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -354,48 +324,33 @@
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "praticienId",
+        "name": "resultId",
         "type": "uint256"
       },
       {
         "components": [
           {
             "internalType": "string",
-            "name": "lastname",
+            "name": "name",
             "type": "string"
           },
           {
             "internalType": "string",
-            "name": "firstname",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "email",
+            "name": "description",
             "type": "string"
           },
           {
             "internalType": "uint256",
-            "name": "societe",
+            "name": "date",
             "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "debut",
-            "type": "uint256"
-          },
-          {
-            "internalType": "string",
-            "name": "status",
-            "type": "string"
           }
         ],
-        "internalType": "struct Praticiens.Praticien",
-        "name": "updatedPraticien",
+        "internalType": "struct Results.Result",
+        "name": "updatedResult",
         "type": "tuple"
       }
     ],
-    "name": "updatePracticien",
+    "name": "updateResult",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

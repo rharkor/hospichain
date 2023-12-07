@@ -121,7 +121,7 @@
   },
   {
     "inputs": [],
-    "name": "PracticienCount",
+    "name": "SocietyCount",
     "outputs": [
       {
         "internalType": "uint256",
@@ -138,41 +138,26 @@
         "components": [
           {
             "internalType": "string",
-            "name": "lastname",
+            "name": "name",
             "type": "string"
           },
           {
             "internalType": "string",
-            "name": "firstname",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "email",
+            "name": "siret",
             "type": "string"
           },
           {
             "internalType": "uint256",
-            "name": "societe",
+            "name": "location",
             "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "debut",
-            "type": "uint256"
-          },
-          {
-            "internalType": "string",
-            "name": "status",
-            "type": "string"
           }
         ],
-        "internalType": "struct Praticiens.Praticien",
-        "name": "newPraticien",
+        "internalType": "struct Societies.Society",
+        "name": "newSociety",
         "type": "tuple"
       }
     ],
-    "name": "addPracticien",
+    "name": "addSociety",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -241,50 +226,6 @@
   {
     "inputs": [
       {
-        "internalType": "uint256",
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "name": "practiciens",
-    "outputs": [
-      {
-        "internalType": "string",
-        "name": "lastname",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
-        "name": "firstname",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
-        "name": "email",
-        "type": "string"
-      },
-      {
-        "internalType": "uint256",
-        "name": "societe",
-        "type": "uint256"
-      },
-      {
-        "internalType": "uint256",
-        "name": "debut",
-        "type": "uint256"
-      },
-      {
-        "internalType": "string",
-        "name": "status",
-        "type": "string"
-      }
-    ],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [
-      {
         "internalType": "bytes32",
         "name": "role",
         "type": "bytes32"
@@ -334,6 +275,35 @@
   {
     "inputs": [
       {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "societies",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "name",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "siret",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "location",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "bytes4",
         "name": "interfaceId",
         "type": "bytes4"
@@ -354,44 +324,29 @@
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "praticienId",
+        "name": "societyId",
         "type": "uint256"
       },
       {
         "components": [
           {
             "internalType": "string",
-            "name": "lastname",
+            "name": "name",
             "type": "string"
           },
           {
             "internalType": "string",
-            "name": "firstname",
-            "type": "string"
-          },
-          {
-            "internalType": "string",
-            "name": "email",
+            "name": "siret",
             "type": "string"
           },
           {
             "internalType": "uint256",
-            "name": "societe",
+            "name": "location",
             "type": "uint256"
-          },
-          {
-            "internalType": "uint256",
-            "name": "debut",
-            "type": "uint256"
-          },
-          {
-            "internalType": "string",
-            "name": "status",
-            "type": "string"
           }
         ],
-        "internalType": "struct Praticiens.Praticien",
-        "name": "updatedPraticien",
+        "internalType": "struct Societies.Society",
+        "name": "updatedSociety",
         "type": "tuple"
       }
     ],

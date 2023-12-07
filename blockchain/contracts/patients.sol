@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.20;
 
-import "@openzeppelin/contracts/access/AccessControl.sol";
 import "./role-manager.sol";
 
 contract Patients is AccessControl {
@@ -20,6 +19,20 @@ contract Patients is AccessControl {
     uint[] exams;
     uint[] operations;
     uint[] treatements;
+    uint dead;
+  }
+
+  struct UpdatePatient {
+    string lastnames;
+    string firstnames;
+    uint age;
+    string nationality;
+    string email;
+    bool alive;
+    uint referringDoctor;
+    uint[] newExams;
+    uint[] newOperations;
+    uint[] newTreatements;
     uint dead;
   }
 
@@ -46,6 +59,43 @@ contract Patients is AccessControl {
     patients[patientCount] = newPatient;
   }
 
+  function updatePatient(uint id, UpdatePatient memory newPatient) public {
+    require(
+      roleManager.hasRole(roleManager.MANAGER_ROLE(), msg.sender) ||
+        roleManager.hasRole(roleManager.PRATICIEN_ROLE(), msg.sender),
+      "Caller is not a manager or a praticien"
+    );
+    require(id <= patientCount, "Patient id is out of range");
+    if (roleManager.hasRole(roleManager.MANAGER_ROLE(), msg.sender)) {
+      patients[id].lastnames = newPatient.lastnames;
+      patients[id].firstnames = newPatient.firstnames;
+      patients[id].age = newPatient.age;
+      patients[id].nationality = newPatient.nationality;
+      patients[id].email = newPatient.email;
+      patients[id].referringDoctor = newPatient.referringDoctor;
+    }
+    //? Update exams, operations, treatements and dead
+    if (newPatient.newExams.length > 0) {
+      for (uint i = 0; i < newPatient.newExams.length; i++) {
+        patients[id].exams.push(newPatient.newExams[i]);
+      }
+    }
+    if (newPatient.newOperations.length > 0) {
+      for (uint i = 0; i < newPatient.newOperations.length; i++) {
+        patients[id].operations.push(newPatient.newOperations[i]);
+      }
+    }
+    if (newPatient.newTreatements.length > 0) {
+      for (uint i = 0; i < newPatient.newTreatements.length; i++) {
+        patients[id].treatements.push(newPatient.newTreatements[i]);
+      }
+    }
+    if (patients[id].dead == 0) {
+      patients[id].dead = newPatient.dead;
+    }
+    patients[id].alive = newPatient.alive;
+  }
+
   function getPatients(uint offset, uint limit) public view returns (Patient[] memory) {
     require(
       roleManager.hasRole(roleManager.MANAGER_ROLE(), msg.sender) ||
@@ -64,5 +114,9 @@ contract Patients is AccessControl {
 
   function setRoleManager(address roleManagerAddress) public onlyAdmin {
     roleManager = RoleManager(roleManagerAddress);
+  }
+
+  function test() public view returns (address) {
+    return msg.sender;
   }
 }
