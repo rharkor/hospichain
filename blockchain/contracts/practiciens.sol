@@ -9,7 +9,7 @@ contract Praticiens is AccessControl {
 
   struct Praticien {
     string lastname;
-    string  firstname;
+    string firstname;
     string email;
     uint societe;
     uint debut;
@@ -34,17 +34,17 @@ contract Praticiens is AccessControl {
     _;
   }
 
-  function addPracticien(Praticien memory newPraticien) public onlyManager{
+  function addPracticien(Praticien memory newPraticien) public onlyManager {
     practiciens[PracticienCount] = newPraticien;
     PracticienCount++;
   }
 
-  function updatePracticien(uint praticienId, Praticien memory updatedPraticien) public onlyManager{
+  function updatePracticien(uint praticienId, Praticien memory updatedPraticien) public onlyManager {
     require(praticienId < PracticienCount, "Invalid Practicien ID");
     practiciens[praticienId] = updatedPraticien;
   }
 
-function setRoleManager(address roleManagerAddress) public onlyAdmin {
+  function setRoleManager(address roleManagerAddress) public onlyAdmin {
     roleManager = RoleManager(roleManagerAddress);
   }
 }

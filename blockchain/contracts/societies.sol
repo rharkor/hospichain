@@ -5,13 +5,13 @@ import "@openzeppelin/contracts/access/AccessControl.sol";
 import "./role-manager.sol";
 
 contract Societies is AccessControl {
-     RoleManager roleManager;
+  RoleManager roleManager;
 
-    struct Society {
-        string name;
-        string siret;
-        uint location;
-    }
+  struct Society {
+    string name;
+    string siret;
+    uint location;
+  }
   mapping(uint => Society) public societies;
   uint public SocietyCount;
 
@@ -30,12 +30,12 @@ contract Societies is AccessControl {
     _;
   }
 
-  function addSociety(Society memory newSociety) public onlyManager{
+  function addSociety(Society memory newSociety) public onlyManager {
     societies[SocietyCount] = newSociety;
     SocietyCount++;
   }
 
-  function updatePracticien(uint societyId, Society memory updatedSociety) public onlyManager{
+  function updatePracticien(uint societyId, Society memory updatedSociety) public onlyManager {
     require(societyId < SocietyCount, "Invalid Society ID");
     societies[societyId] = updatedSociety;
   }

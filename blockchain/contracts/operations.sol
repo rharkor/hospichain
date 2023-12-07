@@ -9,7 +9,7 @@ contract Operations is AccessControl {
 
   struct Operation {
     string operation_type;
-    string  prescriber;
+    string prescriber;
     string reason;
     uint result;
     string complications;
@@ -26,8 +26,8 @@ contract Operations is AccessControl {
   }
 
   modifier onlyPracticien() {
-     require(roleManager.hasRole(roleManager.PRATICIEN_ROLE(), msg.sender), "Caller is not a praticien");
-     _;
+    require(roleManager.hasRole(roleManager.PRATICIEN_ROLE(), msg.sender), "Caller is not a praticien");
+    _;
   }
 
   modifier onlyManager() {
@@ -40,17 +40,17 @@ contract Operations is AccessControl {
     _;
   }
 
-  function addOperation(Operation memory newOperation) public onlyPracticien{
+  function addOperation(Operation memory newOperation) public onlyPracticien {
     operations[OperationCount] = newOperation;
     OperationCount++;
   }
 
-  function updateOperation(uint OperationId, Operation memory updatedOperation) public onlyPracticien{
+  function updateOperation(uint OperationId, Operation memory updatedOperation) public onlyPracticien {
     require(OperationId < OperationCount, "Invalid Operation ID");
     operations[OperationId] = updatedOperation;
   }
 
-function setRoleManager(address roleManagerAddress) public onlyAdmin {
+  function setRoleManager(address roleManagerAddress) public onlyAdmin {
     roleManager = RoleManager(roleManagerAddress);
   }
 }
