@@ -115,8 +115,4 @@ contract Patients is AccessControl {
   function setRoleManager(address roleManagerAddress) public onlyAdmin {
     roleManager = RoleManager(roleManagerAddress);
   }
-
-  function test() public view returns (address) {
-    return msg.sender;
-  }
 }
