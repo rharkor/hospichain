@@ -350,7 +350,7 @@
         "type": "tuple"
       }
     ],
-    "name": "updatePracticien",
+    "name": "updatePraticien",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

@@ -4,29 +4,29 @@ pragma solidity ^0.8.20;
 import "@openzeppelin/contracts/access/AccessControl.sol";
 import "./role-manager.sol";
 
-contract Exams is AccessControl{
-     RoleManager roleManager;
+contract Exams is AccessControl {
+  RoleManager roleManager;
 
-    struct Exam {
-        string speciality;
-        string exam_type;
-        uint prescriber;
-        uint date;
-        string reason;
-        uint results;
-    }
+  struct Exam {
+    string speciality;
+    string exam_type;
+    uint prescriber;
+    uint date;
+    string reason;
+    uint results;
+  }
 
-    mapping(uint => Exam) public exams;
-    uint public ExamCount;
+  mapping(uint => Exam) public exams;
+  uint public ExamCount;
 
   constructor(address roleManagerAddress) {
     _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
     roleManager = RoleManager(roleManagerAddress);
   }
 
-  modifier onlyPracticien() {
-     require(roleManager.hasRole(roleManager.PRATICIEN_ROLE(), msg.sender), "Caller is not a praticien");
-     _;
+  modifier onlyPraticien() {
+    require(roleManager.hasRole(roleManager.PRATICIEN_ROLE(), msg.sender), "Caller is not a praticien");
+    _;
   }
 
   modifier onlyManager() {
@@ -39,12 +39,12 @@ contract Exams is AccessControl{
     _;
   }
 
-  function addExam(Exam memory newExam) public onlyPracticien{
+  function addExam(Exam memory newExam) public onlyPraticien {
     exams[ExamCount] = newExam;
     ExamCount++;
   }
 
-  function updateExam(uint examId, Exam memory updatedExam) public onlyPracticien{
+  function updateExam(uint examId, Exam memory updatedExam) public onlyPraticien {
     require(examId < ExamCount, "Invalid Exam ID");
     exams[examId] = updatedExam;
   }
@@ -52,5 +52,4 @@ contract Exams is AccessControl{
   function setRoleManager(address roleManagerAddress) public onlyAdmin {
     roleManager = RoleManager(roleManagerAddress);
   }
-    
 }

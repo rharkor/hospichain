@@ -43,7 +43,7 @@ describe("Praticiens", function () {
     })
   })
 
-  describe("Patients", function () {
+  describe("Praticien", function () {
     it("Should add a praticien", async function () {
       const { roleManager, praticiens, owner, manager1, account5, praticien1 } = await loadFixture(deploy)
 

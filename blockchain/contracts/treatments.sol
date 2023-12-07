@@ -9,7 +9,7 @@ contract Treatments is AccessControl {
 
   struct Treatment {
     string Treatment_type;
-    string  prescriber;
+    string prescriber;
     string reason;
     uint result;
     string complications;
@@ -25,9 +25,9 @@ contract Treatments is AccessControl {
     roleManager = RoleManager(roleManagerAddress);
   }
 
-   modifier onlyPracticien() {
-     require(roleManager.hasRole(roleManager.PRATICIEN_ROLE(), msg.sender), "Caller is not a praticien");
-     _;
+  modifier onlyPraticien() {
+    require(roleManager.hasRole(roleManager.PRATICIEN_ROLE(), msg.sender), "Caller is not a praticien");
+    _;
   }
 
   modifier onlyManager() {
@@ -40,17 +40,17 @@ contract Treatments is AccessControl {
     _;
   }
 
-  function addTreatment(Treatment memory newTreatment) public onlyPracticien{
+  function addTreatment(Treatment memory newTreatment) public onlyPraticien {
     treatments[TreatmentCount] = newTreatment;
     TreatmentCount++;
   }
 
-  function updateTreatment(uint TreatmentId, Treatment memory updatedTreatment) public onlyPracticien{
+  function updateTreatment(uint TreatmentId, Treatment memory updatedTreatment) public onlyPraticien {
     require(TreatmentId < TreatmentCount, "Invalid Treatment ID");
     treatments[TreatmentId] = updatedTreatment;
   }
 
-function setRoleManager(address roleManagerAddress) public onlyAdmin {
+  function setRoleManager(address roleManagerAddress) public onlyAdmin {
     roleManager = RoleManager(roleManagerAddress);
   }
 }

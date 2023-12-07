@@ -121,7 +121,7 @@
   },
   {
     "inputs": [],
-    "name": "PracticienCount",
+    "name": "PraticienCount",
     "outputs": [
       {
         "internalType": "uint256",
@@ -153,13 +153,13 @@
           },
           {
             "internalType": "uint256",
-            "name": "societe",
+            "name": "society",
             "type": "uint256"
           },
           {
-            "internalType": "uint256",
+            "internalType": "string",
             "name": "debut",
-            "type": "uint256"
+            "type": "string"
           },
           {
             "internalType": "string",
@@ -172,7 +172,7 @@
         "type": "tuple"
       }
     ],
-    "name": "addPracticien",
+    "name": "addPraticien",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -246,7 +246,7 @@
         "type": "uint256"
       }
     ],
-    "name": "practiciens",
+    "name": "praticiens",
     "outputs": [
       {
         "internalType": "string",
@@ -265,13 +265,13 @@
       },
       {
         "internalType": "uint256",
-        "name": "societe",
+        "name": "society",
         "type": "uint256"
       },
       {
-        "internalType": "uint256",
+        "internalType": "string",
         "name": "debut",
-        "type": "uint256"
+        "type": "string"
       },
       {
         "internalType": "string",
@@ -376,13 +376,13 @@
           },
           {
             "internalType": "uint256",
-            "name": "societe",
+            "name": "society",
             "type": "uint256"
           },
           {
-            "internalType": "uint256",
+            "internalType": "string",
             "name": "debut",
-            "type": "uint256"
+            "type": "string"
           },
           {
             "internalType": "string",
@@ -395,7 +395,7 @@
         "type": "tuple"
       }
     ],
-    "name": "updatePracticien",
+    "name": "updatePraticien",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

@@ -9,15 +9,15 @@ contract Praticiens is AccessControl {
 
   struct Praticien {
     string lastname;
-    string  firstname;
+    string firstname;
     string email;
     uint society;
     string debut;
     string status;
   }
 
-  mapping(uint => Praticien) public practiciens;
-  uint public PracticienCount;
+  mapping(uint => Praticien) public praticiens;
+  uint public PraticienCount;
 
   constructor(address roleManagerAddress) {
     _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
@@ -35,16 +35,16 @@ contract Praticiens is AccessControl {
   }
 
   function addPraticien(Praticien memory newPraticien) public onlyManager{
-    practiciens[PracticienCount] = newPraticien;
-    PracticienCount++;
+    praticiens[PraticienCount] = newPraticien;
+    PraticienCount++;
   }
 
   function updatePraticien(uint praticienId, Praticien memory updatedPraticien) public onlyManager{
-    require(praticienId < PracticienCount, "Invalid Practicien ID");
-    practiciens[praticienId] = updatedPraticien;
+    require(praticienId < PraticienCount, "Invalid Praticien ID");
+    praticiens[praticienId] = updatedPraticien;
   }
 
-function setRoleManager(address roleManagerAddress) public onlyAdmin {
+  function setRoleManager(address roleManagerAddress) public onlyAdmin {
     roleManager = RoleManager(roleManagerAddress);
   }
 }
