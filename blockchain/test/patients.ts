@@ -51,15 +51,15 @@ describe("Patients", function () {
       const newPatient = {
         lastnames: "Dupont",
         firstnames: "Jean",
-        age: 42,
+        age: 42n,
         nationality: "French",
         email: "jdupont@mail.com",
         alive: true,
-        referringDoctor: 0,
+        referringDoctor: 0n,
         exams: [],
         operations: [],
         treatements: [],
-        dead: 0,
+        dead: 0n,
       }
 
       await patients.write.addPatient([newPatient], {
@@ -96,15 +96,15 @@ describe("Patients", function () {
       const newPatient = {
         lastnames: "Dupont",
         firstnames: "Jean",
-        age: 42,
+        age: 42n,
         nationality: "French",
         email: "jdupont@mail.com",
         alive: true,
-        referringDoctor: 0,
+        referringDoctor: 0n,
         exams: [],
         operations: [],
         treatements: [],
-        dead: 0,
+        dead: 0n,
       }
 
       await patients.write.addPatient([newPatient], {
@@ -147,15 +147,15 @@ describe("Patients", function () {
       const newPatient = {
         lastnames: "Dupont",
         firstnames: "Jean",
-        age: 42,
+        age: 42n,
         nationality: "French",
         email: "jdupont@mail.com",
         alive: true,
-        referringDoctor: 0,
+        referringDoctor: 0n,
         exams: [1, 2],
         operations: [2],
         treatements: [3],
-        dead: 0,
+        dead: 0n,
       }
 
       await patients.write.addPatient([newPatient], {
@@ -195,7 +195,7 @@ describe("Patients", function () {
 
       const patientsToAdd = 20
       const patientsPerPage = 5
-      for (let i = 0; i < patientsToAdd; i++) {
+      for (let i = 0n; i < patientsToAdd; i++) {
         const newPatient = {
           lastnames: "Dupont",
           firstnames: "Jean",
@@ -203,11 +203,11 @@ describe("Patients", function () {
           nationality: "French",
           email: "jdupont@mail.com",
           alive: true,
-          referringDoctor: 0,
+          referringDoctor: 0n,
           exams: [1, 2],
           operations: [2],
           treatements: [3],
-          dead: 0,
+          dead: 0n,
         }
         await patients.write.addPatient([newPatient], {
           account: manager1.account.address,

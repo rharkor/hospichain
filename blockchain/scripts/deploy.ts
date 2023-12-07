@@ -1,5 +1,14 @@
 import hre from "hardhat"
 import inquirer from "inquirer"
+import {
+  Exams__factory,
+  Operations__factory,
+  Patients__factory,
+  Praticiens__factory,
+  Results__factory,
+  Societies__factory,
+  Treatments__factory,
+} from "../typechain-types"
 
 async function deployRoleManager() {
   const RoleManager = await hre.ethers.getContractFactory("RoleManager")
@@ -8,8 +17,16 @@ async function deployRoleManager() {
   console.log("RoleManager deployed to:", await roleManager.getAddress())
 }
 
-async function deployPatients() {
-  const Patients = await hre.ethers.getContractFactory("Patients")
+async function deployBasic() {
+  const availablesContracts = ["Patients", "Exams", "Operations", "Praticiens", "Societes", "Treatments", "Results"]
+  const contractRes = await inquirer.prompt([
+    {
+      name: "contract",
+      type: "list",
+      message: "Which contract to deploy?",
+      choices: availablesContracts,
+    },
+  ])
   const res = await inquirer.prompt([
     {
       name: "roleManager",
@@ -28,9 +45,18 @@ async function deployPatients() {
     return
   }
 
-  const patients = await Patients.deploy(res.roleManager)
-  await patients.waitForDeployment()
-  console.log("Patients deployed to:", await patients.getAddress())
+  const Contract = (await hre.ethers.getContractFactory(contractRes.contract)) as
+    | Patients__factory
+    | Exams__factory
+    | Operations__factory
+    | Praticiens__factory
+    | Societies__factory
+    | Treatments__factory
+    | Results__factory
+
+  const contract = await Contract.deploy(res.roleManager)
+  await contract.waitForDeployment()
+  console.log(`Contract ${contractRes.contract} deployed to:`, await contract.getAddress())
 }
 
 async function main() {
@@ -39,14 +65,14 @@ async function main() {
       name: "which",
       type: "list",
       message: "Which contract to deploy?",
-      choices: ["RoleManager", "Patients"],
+      choices: ["RoleManager", "Other"],
     },
   ])
 
   if (res.which === "RoleManager") {
     await deployRoleManager()
-  } else if (res.which === "Patients") {
-    await deployPatients()
+  } else if (res.which === "Other") {
+    await deployBasic()
   } else {
     console.log("Not implemented")
   }

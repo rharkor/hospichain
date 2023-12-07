@@ -18,10 +18,9 @@ import {
   TableRow,
   useDisclosure,
 } from "@nextui-org/react"
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import { toast } from "react-toastify"
-import { AbiItem } from "viem/_types/types/contract"
-import { useContractReads, useContractWrite, useWaitForTransaction } from "wagmi"
+import { useAccount, useContractRead, useContractWrite, useWaitForTransaction } from "wagmi"
 import { ModalHeader } from "@/components/ui/modal"
 import patientsAbi from "blockchain/abi/contracts/patients.sol/Patients.json"
 import { Patients as PatientsContract } from "blockchain/typechain-types"
@@ -36,24 +35,37 @@ export default function PatientsContent() {
     setIsMounted(true)
   }, [])
 
-  const patientsContract = {
+  const { address } = useAccount()
+  const {
+    data: pCountData,
+    isLoading: pCountIsLoading,
+    refetch: pCountRefetch,
+  } = useContractRead({
     address: env.NEXT_PUBLIC_PATIENTS as `0x${string}`,
-    abi: patientsAbi as AbiItem[],
-  }
-  const { data, isLoading, refetch } = useContractReads({
-    contracts: [
-      {
-        ...patientsContract,
-        functionName: "patientCount",
-        args: [],
-      },
-      {
-        ...patientsContract,
-        functionName: "getPatients",
-        args: [(page - 1) * rowsPerPage, rowsPerPage],
-      },
-    ],
+    abi: patientsAbi,
+    functionName: "patientCount",
+    account: address,
   })
+
+  const {
+    data: pDataData,
+    isLoading: pDataIsLoading,
+    refetch: pDataRefetch,
+  } = useContractRead({
+    address: env.NEXT_PUBLIC_PATIENTS as `0x${string}`,
+    abi: patientsAbi,
+    functionName: "getPatients",
+    args: [(page - 1) * rowsPerPage, rowsPerPage],
+    account: address,
+  })
+
+  const data = [pCountData, pDataData]
+  const isLoading = pCountIsLoading || pDataIsLoading
+  const refetch = useCallback(() => {
+    pCountRefetch()
+    pDataRefetch()
+  }, [pCountRefetch, pDataRefetch])
+
   const result: [
     {
       patientCount: bigint | undefined
@@ -63,15 +75,15 @@ export default function PatientsContent() {
     },
   ] = [
     {
-      patientCount: data?.[0]?.result as bigint | undefined,
+      patientCount: data[0] as bigint | undefined,
     },
     {
-      getPatients: data?.[1]?.result as Awaited<ReturnType<PatientsContract["getPatients"]>> | undefined,
+      getPatients: data[1] as Awaited<ReturnType<PatientsContract["getPatients"]>> | undefined,
     },
   ]
 
   const pages = Math.ceil(Number(result[0].patientCount) / rowsPerPage)
-  const patients = result[1].getPatients?.map((p, index) => ({ ...p, index }))
+  const patients = result[1].getPatients?.map((p, index) => ({ ...p, index })) ?? []
 
   const [createPatientInput, setCreatePatientInput] = useState({
     lastnames: "",
