@@ -11,8 +11,8 @@ contract Praticiens is AccessControl {
     string lastname;
     string  firstname;
     string email;
-    uint societe;
-    uint debut;
+    uint society;
+    string debut;
     string status;
   }
 
@@ -34,12 +34,12 @@ contract Praticiens is AccessControl {
     _;
   }
 
-  function addPracticien(Praticien memory newPraticien) public onlyManager{
+  function addPraticien(Praticien memory newPraticien) public onlyManager{
     practiciens[PracticienCount] = newPraticien;
     PracticienCount++;
   }
 
-  function updatePracticien(uint praticienId, Praticien memory updatedPraticien) public onlyManager{
+  function updatePraticien(uint praticienId, Praticien memory updatedPraticien) public onlyManager{
     require(praticienId < PracticienCount, "Invalid Practicien ID");
     practiciens[praticienId] = updatedPraticien;
   }
