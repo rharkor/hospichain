@@ -3,9 +3,11 @@ pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/access/AccessControl.sol";
 import "./role-manager.sol";
+import "./societies.sol";
 
 contract Praticiens is AccessControl {
   RoleManager roleManager;
+  Societies societies;
 
   struct Praticien {
     string lastname;
@@ -19,9 +21,10 @@ contract Praticiens is AccessControl {
   mapping(uint => Praticien) public praticiens;
   uint public PraticienCount;
 
-  constructor(address roleManagerAddress) {
+  constructor(address roleManagerAddress, address societiesAddress) {
     _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
     roleManager = RoleManager(roleManagerAddress);
+    societies = Societies(societiesAddress);
   }
 
   modifier onlyManager() {
@@ -34,13 +37,27 @@ contract Praticiens is AccessControl {
     _;
   }
 
+  function compareStrings(string memory a, string memory b) public pure returns (bool) {
+    return (keccak256(abi.encodePacked((a))) == keccak256(abi.encodePacked((b))));
+  }
+
   function addPraticien(Praticien memory newPraticien) public onlyManager {
+    //* Check valid data
+    // Check that the society is valid
+    if (newPraticien.society != 0) {
+      require(compareStrings(societies.getSociety(newPraticien.society).siret, ""), "Society is not a praticien");
+    }
     praticiens[PraticienCount] = newPraticien;
     PraticienCount++;
   }
 
   function updatePraticien(uint praticienId, Praticien memory updatedPraticien) public onlyManager {
     require(praticienId < PraticienCount, "Invalid Praticien ID");
+    //* Check valid data
+    // Check that the society is valid
+    if (updatedPraticien.society != 0) {
+      require(compareStrings(societies.getSociety(updatedPraticien.society).siret, ""), "Society is not a praticien");
+    }
     praticiens[praticienId] = updatedPraticien;
   }
 
@@ -51,5 +68,9 @@ contract Praticiens is AccessControl {
   function getPraticien(uint praticienId) public view returns (Praticien memory) {
     require(praticienId < PraticienCount, "Invalid Praticien ID");
     return praticiens[praticienId];
+  }
+
+  function setSocieties(address societiesAddress) public onlyAdmin {
+    societies = Societies(societiesAddress);
   }
 }
