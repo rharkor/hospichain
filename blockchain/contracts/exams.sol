@@ -24,6 +24,11 @@ contract Exams is AccessControl{
     roleManager = RoleManager(roleManagerAddress);
   }
 
+  modifier onlyPracticien() {
+     require(roleManager.hasRole(roleManager.PRATICIEN_ROLE(), msg.sender), "Caller is not a praticien");
+     _;
+  }
+
   modifier onlyManager() {
     require(roleManager.hasRole(roleManager.MANAGER_ROLE(), msg.sender), "Caller is not a manager");
     _;
@@ -34,13 +39,13 @@ contract Exams is AccessControl{
     _;
   }
 
-  function addExam(Exam memory newExam) public onlyManager{
+  function addExam(Exam memory newExam) public onlyPracticien{
     exams[ExamCount] = newExam;
     ExamCount++;
   }
 
-  function updateExam(uint examId, Exam memory updatedExam) public onlyManager{
-    require(examId < ExamCount, "Invalid Practicien ID");
+  function updateExam(uint examId, Exam memory updatedExam) public onlyPracticien{
+    require(examId < ExamCount, "Invalid Exam ID");
     exams[examId] = updatedExam;
   }
 

@@ -4,17 +4,21 @@ pragma solidity ^0.8.20;
 import "@openzeppelin/contracts/access/AccessControl.sol";
 import "./role-manager.sol";
 
-contract Results is AccessControl{
-     RoleManager roleManager;
+contract Operations is AccessControl {
+  RoleManager roleManager;
 
-    struct Result {
-        string name;
-        string  description;
-        uint date;
-    }
+  struct Operation {
+    string operation_type;
+    string  prescriber;
+    string reason;
+    uint result;
+    string complications;
+    bool alive;
+    uint date;
+  }
 
-  mapping(uint => Result) public results;
-  uint public ResultCount;
+  mapping(uint => Operation) public operations;
+  uint public OperationCount;
 
   constructor(address roleManagerAddress) {
     _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
@@ -36,18 +40,17 @@ contract Results is AccessControl{
     _;
   }
 
-  function addResult(Result memory newResult) public onlyPracticien{
-    results[ResultCount] = newResult;
-    ResultCount++;
+  function addOperation(Operation memory newOperation) public onlyPracticien{
+    operations[OperationCount] = newOperation;
+    OperationCount++;
   }
 
-  function updateResult(uint resultId, Result memory updatedResult) public onlyPracticien{
-    require(resultId < ResultCount, "Invalid Result ID");
-    results[resultId] = updatedResult;
+  function updateOperation(uint OperationId, Operation memory updatedOperation) public onlyPracticien{
+    require(OperationId < OperationCount, "Invalid Operation ID");
+    operations[OperationId] = updatedOperation;
   }
 
-  function setRoleManager(address roleManagerAddress) public onlyAdmin {
+function setRoleManager(address roleManagerAddress) public onlyAdmin {
     roleManager = RoleManager(roleManagerAddress);
   }
-    
 }

@@ -36,7 +36,7 @@ contract Societies is AccessControl {
   }
 
   function updatePracticien(uint societyId, Society memory updatedSociety) public onlyManager{
-    require(societyId < SocietyCount, "Invalid Practicien ID");
+    require(societyId < SocietyCount, "Invalid Society ID");
     societies[societyId] = updatedSociety;
   }
 
