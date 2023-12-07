@@ -35,8 +35,8 @@ contract Praticiens is AccessControl {
   }
 
   function addPraticien(Praticien memory newPraticien) public onlyManager {
-    praticiens[PraticienCount] = newPraticien;
     PraticienCount++;
+    praticiens[PraticienCount] = newPraticien;
   }
 
   function updatePraticien(uint praticienId, Praticien memory updatedPraticien) public onlyManager {
@@ -49,7 +49,7 @@ contract Praticiens is AccessControl {
   }
 
   function getPraticien(uint praticienId) public view returns (Praticien memory) {
-    require(praticienId < PraticienCount, "Invalid Praticien ID");
+    require(praticienId <= PraticienCount, "Invalid Praticien ID");
     return praticiens[praticienId];
   }
 }

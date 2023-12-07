@@ -20,7 +20,8 @@ contract Operations is AccessControl {
   }
 
   mapping(uint => Operation) public operations;
-  uint public OperationCount;
+  uint public operationCount;
+  uint public maxLimit = 100;
 
   constructor(address roleManagerAddress, address praticiensAddress) {
     _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
@@ -48,26 +49,24 @@ contract Operations is AccessControl {
   }
 
   function addOperation(Operation memory newOperation) public onlyPraticien {
-
     if (newOperation.prescriber != 0) {
       require(
-        compareStrings(praticiens.getPraticien(newOperation.prescriber).email, ""),
+        !compareStrings(praticiens.getPraticien(newOperation.prescriber).email, ""),
         "Prescriber is not a praticien"
       );
     }
-    operations[OperationCount] = newOperation;
-    OperationCount++;
+    operationCount++;
+    operations[operationCount] = newOperation;
   }
 
   function updateOperation(uint operationId, Operation memory updatedOperation) public onlyPraticien {
-
     if (updatedOperation.prescriber != 0) {
       require(
-        compareStrings(praticiens.getPraticien(updatedOperation.prescriber).email, ""),
+        !compareStrings(praticiens.getPraticien(updatedOperation.prescriber).email, ""),
         "Prescriber is not a praticien"
       );
     }
-    require(operationId < OperationCount, "Invalid Operation ID");
+    require(operationId < operationCount, "Invalid Operation ID");
     operations[operationId] = updatedOperation;
   }
 
@@ -76,7 +75,23 @@ contract Operations is AccessControl {
   }
 
   function getOperation(uint operationId) public view returns (Operation memory) {
-    require(operationId < OperationCount, "Invalid Praticien ID");
+    require(operationId <= operationCount, "Invalid Operation ID");
     return operations[operationId];
+  }
+
+  function getOperations(uint offset, uint limit) public view returns (Operation[] memory) {
+    require(
+      roleManager.hasRole(roleManager.MANAGER_ROLE(), msg.sender) ||
+        roleManager.hasRole(roleManager.PRATICIEN_ROLE(), msg.sender),
+      "Caller is not a manager or a praticien"
+    );
+    require(offset <= operationCount, "Offset is out of range");
+    limit = limit > maxLimit ? maxLimit : limit;
+    limit = limit > operationCount ? operationCount : limit;
+    Operation[] memory _operations = new Operation[](limit);
+    for (uint i = offset; i < offset + limit; i++) {
+      _operations[i - offset] = operations[i + 1];
+    }
+    return _operations;
   }
 }
