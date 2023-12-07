@@ -34,17 +34,22 @@ contract Praticiens is AccessControl {
     _;
   }
 
-  function addPraticien(Praticien memory newPraticien) public onlyManager{
+  function addPraticien(Praticien memory newPraticien) public onlyManager {
     praticiens[PraticienCount] = newPraticien;
     PraticienCount++;
   }
 
-  function updatePraticien(uint praticienId, Praticien memory updatedPraticien) public onlyManager{
+  function updatePraticien(uint praticienId, Praticien memory updatedPraticien) public onlyManager {
     require(praticienId < PraticienCount, "Invalid Praticien ID");
     praticiens[praticienId] = updatedPraticien;
   }
 
   function setRoleManager(address roleManagerAddress) public onlyAdmin {
     roleManager = RoleManager(roleManagerAddress);
+  }
+
+  function getPraticien(uint praticienId) public view returns (Praticien memory) {
+    require(praticienId < PraticienCount, "Invalid Praticien ID");
+    return praticiens[praticienId];
   }
 }

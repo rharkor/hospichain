@@ -5,6 +5,11 @@
         "internalType": "address",
         "name": "roleManagerAddress",
         "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "praticiensAddress",
+        "type": "address"
       }
     ],
     "stateMutability": "nonpayable",
@@ -187,6 +192,30 @@
     "name": "addPatient",
     "outputs": [],
     "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "a",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "b",
+        "type": "string"
+      }
+    ],
+    "name": "compareStrings",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "pure",
     "type": "function"
   },
   {
@@ -443,6 +472,19 @@
       }
     ],
     "name": "revokeRole",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "praticiensAddress",
+        "type": "address"
+      }
+    ],
+    "name": "setPraticiens",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

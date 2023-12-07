@@ -14,7 +14,9 @@ describe("Patients", function () {
     await roleManager.write.addPraticien([praticien1.account.address, "Michel Martin", "mmartin@mail.com"])
     await roleManager.write.addPraticien([praticien2.account.address, "Jeanne Durand", "jdurand@mail.com"])
 
-    const patients = await hre.viem.deployContract("Patients", [roleManager.address])
+    const praticiens = await hre.viem.deployContract("Praticiens", [roleManager.address])
+
+    const patients = await hre.viem.deployContract("Patients", [roleManager.address, praticiens.address])
 
     const publicClient = await hre.viem.getPublicClient()
 
@@ -226,6 +228,32 @@ describe("Patients", function () {
       expect(patientsPage2.length).to.equal(patientsPerPage)
       expect(patientsPage2[0].age).to.equal(patientsPerPage)
       expect(patientsPage2[patientsPage2.length - 1].age).to.equal(patientsPerPage * 2 - 1)
+    })
+  })
+
+  describe("Valid data", function () {
+    it("Should crash if the referring doctor is not a praticien", async function () {
+      const { patients, manager1 } = await loadFixture(deploy)
+
+      const newPatient = {
+        lastnames: "Dupont",
+        firstnames: "Jean",
+        age: 42n,
+        nationality: "French",
+        email: "jdupont@mail.com",
+        alive: true,
+        referringDoctor: 23n,
+        exams: [],
+        operations: [],
+        treatements: [],
+        dead: 0n,
+      }
+
+      await expect(
+        patients.write.addPatient([newPatient], {
+          account: manager1.account.address,
+        })
+      ).to.be.rejectedWith("Invalid Praticien ID")
     })
   })
 })

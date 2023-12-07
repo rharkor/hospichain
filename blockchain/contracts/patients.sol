@@ -2,9 +2,11 @@
 pragma solidity ^0.8.20;
 
 import "./role-manager.sol";
+import "./praticiens.sol";
 
 contract Patients is AccessControl {
   RoleManager roleManager;
+  Praticiens praticiens;
 
   uint public maxLimit = 100;
 
@@ -39,9 +41,10 @@ contract Patients is AccessControl {
   mapping(uint => Patient) public patients;
   uint public patientCount;
 
-  constructor(address roleManagerAddress) {
+  constructor(address roleManagerAddress, address praticiensAddress) {
     _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
     roleManager = RoleManager(roleManagerAddress);
+    praticiens = Praticiens(praticiensAddress);
   }
 
   modifier onlyManager() {
@@ -54,7 +57,21 @@ contract Patients is AccessControl {
     _;
   }
 
+  function compareStrings(string memory a, string memory b) public pure returns (bool) {
+    return (keccak256(abi.encodePacked((a))) == keccak256(abi.encodePacked((b))));
+  }
+
   function addPatient(Patient memory newPatient) public onlyManager {
+    //* Check valid data
+    // Check that the referring doctor is a praticien
+    if (newPatient.referringDoctor != 0) {
+      require(
+        compareStrings(praticiens.getPraticien(newPatient.referringDoctor).email, ""),
+        "Referring doctor is not a praticien"
+      );
+    }
+
+    //* Add
     patientCount++;
     patients[patientCount] = newPatient;
   }
@@ -114,5 +131,9 @@ contract Patients is AccessControl {
 
   function setRoleManager(address roleManagerAddress) public onlyAdmin {
     roleManager = RoleManager(roleManagerAddress);
+  }
+
+  function setPraticiens(address praticiensAddress) public onlyAdmin {
+    praticiens = Praticiens(praticiensAddress);
   }
 }
