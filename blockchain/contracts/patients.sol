@@ -83,6 +83,14 @@ contract Patients is AccessControl {
       "Caller is not a manager or a praticien"
     );
     require(id <= patientCount, "Patient id is out of range");
+    //* Check valid data
+    // Check that the referring doctor is a praticien
+    if (newPatient.referringDoctor != 0) {
+      require(
+        compareStrings(praticiens.getPraticien(newPatient.referringDoctor).email, ""),
+        "Referring doctor is not a praticien"
+      );
+    }
     if (roleManager.hasRole(roleManager.MANAGER_ROLE(), msg.sender)) {
       patients[id].lastnames = newPatient.lastnames;
       patients[id].firstnames = newPatient.firstnames;
