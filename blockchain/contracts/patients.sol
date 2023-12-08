@@ -69,7 +69,7 @@ contract Patients is AccessControl {
     // Check that the referring doctor is a praticien
     if (newPatient.referringDoctor != 0) {
       require(
-        compareStrings(praticiens.getPraticien(newPatient.referringDoctor).email, ""),
+        !compareStrings(praticiens.getPraticien(newPatient.referringDoctor).email, ""),
         "Referring doctor is not a praticien"
       );
     }
@@ -90,7 +90,7 @@ contract Patients is AccessControl {
     // Check that the referring doctor is a praticien
     if (newPatient.referringDoctor != 0) {
       require(
-        compareStrings(praticiens.getPraticien(newPatient.referringDoctor).email, ""),
+        !compareStrings(praticiens.getPraticien(newPatient.referringDoctor).email, ""),
         "Referring doctor is not a praticien"
       );
     }
@@ -105,8 +105,7 @@ contract Patients is AccessControl {
     //? Update exams, operations, treatements and dead
     if (newPatient.newExams.length > 0) {
       for (uint i = 0; i < newPatient.newExams.length; i++) {
-
-        require(!compareStrings(exams.GetExam(newPatient.newExams[i]).exam_type,""), 'Invalid exam ID');
+        require(!compareStrings(exams.GetExam(newPatient.newExams[i]).exam_type, ""), "Invalid exam ID");
         patients[id].exams.push(newPatient.newExams[i]);
       }
     }
