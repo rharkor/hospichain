@@ -42,12 +42,12 @@ contract Praticiens is AccessControl {
   }
 
   function addPraticien(Praticien memory newPraticien) public onlyManager {
-    PraticienCount++;
     //* Check valid data
     // Check that the society is valid
     if (newPraticien.society != 0) {
       require(!compareStrings(societies.getSociety(newPraticien.society).siret, ""), "Society is not a praticien");
     }
+    PraticienCount++;
     praticiens[PraticienCount] = newPraticien;
   }
 
