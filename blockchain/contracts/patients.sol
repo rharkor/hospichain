@@ -3,10 +3,12 @@ pragma solidity ^0.8.20;
 
 import "./role-manager.sol";
 import "./praticiens.sol";
+import "./exams.sol";
 
 contract Patients is AccessControl {
   RoleManager roleManager;
   Praticiens praticiens;
+  Exams exams;
 
   uint public maxLimit = 100;
 
@@ -41,10 +43,11 @@ contract Patients is AccessControl {
   mapping(uint => Patient) public patients;
   uint public patientCount;
 
-  constructor(address roleManagerAddress, address praticiensAddress) {
+  constructor(address roleManagerAddress, address praticiensAddress, address examsAddress) {
     _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
     roleManager = RoleManager(roleManagerAddress);
     praticiens = Praticiens(praticiensAddress);
+    exams = Exams(examsAddress);
   }
 
   modifier onlyManager() {
@@ -102,6 +105,8 @@ contract Patients is AccessControl {
     //? Update exams, operations, treatements and dead
     if (newPatient.newExams.length > 0) {
       for (uint i = 0; i < newPatient.newExams.length; i++) {
+
+        require(!compareStrings(exams.GetExam(newPatient.newExams[i]).exam_type,""), 'Invalid exam ID');
         patients[id].exams.push(newPatient.newExams[i]);
       }
     }
