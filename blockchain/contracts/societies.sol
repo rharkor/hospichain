@@ -40,6 +40,11 @@ contract Societies is AccessControl {
     societies[societyId] = updatedSociety;
   }
 
+  function getSociety(uint societyId) public view returns (Society memory) {
+    require(societyId < SocietyCount, "Invalid Society ID");
+    return societies[societyId];
+  }
+
   function setRoleManager(address roleManagerAddress) public onlyAdmin {
     roleManager = RoleManager(roleManagerAddress);
   }

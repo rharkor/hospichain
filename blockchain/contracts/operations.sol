@@ -48,7 +48,6 @@ contract Operations is AccessControl {
   }
 
   function addOperation(Operation memory newOperation) public onlyPraticien {
-
     if (newOperation.prescriber != 0) {
       require(
         compareStrings(praticiens.getPraticien(newOperation.prescriber).email, ""),
@@ -60,7 +59,6 @@ contract Operations is AccessControl {
   }
 
   function updateOperation(uint operationId, Operation memory updatedOperation) public onlyPraticien {
-
     if (updatedOperation.prescriber != 0) {
       require(
         compareStrings(praticiens.getPraticien(updatedOperation.prescriber).email, ""),
