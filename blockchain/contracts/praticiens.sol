@@ -46,7 +46,7 @@ contract Praticiens is AccessControl {
     //* Check valid data
     // Check that the society is valid
     if (newPraticien.society != 0) {
-      require(compareStrings(societies.getSociety(newPraticien.society).siret, ""), "Society is not a praticien");
+      require(!compareStrings(societies.getSociety(newPraticien.society).siret, ""), "Society is not a praticien");
     }
     praticiens[PraticienCount] = newPraticien;
   }
@@ -56,7 +56,7 @@ contract Praticiens is AccessControl {
     //* Check valid data
     // Check that the society is valid
     if (updatedPraticien.society != 0) {
-      require(compareStrings(societies.getSociety(updatedPraticien.society).siret, ""), "Society is not a praticien");
+      require(!compareStrings(societies.getSociety(updatedPraticien.society).siret, ""), "Society is not a praticien");
     }
     praticiens[praticienId] = updatedPraticien;
   }
