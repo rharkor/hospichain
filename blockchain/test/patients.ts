@@ -14,10 +14,10 @@ describe("Patients", function () {
     await roleManager.write.addPraticien([praticien1.account.address, "Michel Martin", "mmartin@mail.com"])
     await roleManager.write.addPraticien([praticien2.account.address, "Jeanne Durand", "jdurand@mail.com"])
 
-    const praticiens = await hre.viem.deployContract("Praticiens", [roleManager.address])
-
-    const patients = await hre.viem.deployContract("Patients", [roleManager.address, praticiens.address])
-
+    const societies = await hre.viem.deployContract("Societies", [roleManager.address])
+    const praticiens = await hre.viem.deployContract("Praticiens", [roleManager.address, societies.address])
+    const exams = await hre.viem.deployContract("Exams", [roleManager.address, praticiens.address])
+    const patients = await hre.viem.deployContract("Patients", [roleManager.address, praticiens.address, exams.address])
     const publicClient = await hre.viem.getPublicClient()
 
     return {
@@ -154,8 +154,8 @@ describe("Patients", function () {
         email: "jdupont@mail.com",
         alive: true,
         referringDoctor: 0n,
-        exams: [1, 2],
-        operations: [2],
+        exams: [],
+        operations: [2, 3],
         treatements: [3],
         dead: 0n,
       }
@@ -173,8 +173,8 @@ describe("Patients", function () {
         dead: newPatient.dead,
         alive: newPatient.alive,
         referringDoctor: newPatient.referringDoctor,
-        newExams: [3],
-        newOperations: [3],
+        newExams: [],
+        newOperations: [4],
         newTreatements: [4, 5],
       }
 
@@ -185,8 +185,8 @@ describe("Patients", function () {
       expect(await patients.read.getPatients([0, 1], { account: manager1.account.address })).to.deep.equal([
         {
           ...newPatient,
-          exams: [1n, 2n, 3n],
-          operations: [2n, 3n],
+          exams: [],
+          operations: [2n, 3n, 4n],
           treatements: [3n, 4n, 5n],
         },
       ])

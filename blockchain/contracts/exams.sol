@@ -48,10 +48,7 @@ contract Exams is AccessControl {
 
   function addExam(Exam memory newExam) public onlyPraticien {
     if (newExam.prescriber != 0) {
-      require(
-        !compareStrings(praticiens.getPraticien(newExam.prescriber).email, ""),
-        "Prescriber is not a praticien"
-      );
+      require(!compareStrings(praticiens.getPraticien(newExam.prescriber).email, ""), "Prescriber is not a praticien");
     }
     ExamCount++;
     exams[ExamCount] = newExam;
@@ -73,8 +70,8 @@ contract Exams is AccessControl {
     roleManager = RoleManager(roleManagerAddress);
   }
 
-  function GetExam(uint examId)  public view returns (Exam memory) {
-    require(examId <= ExamCount, "Invalid Praticien ID");
+  function GetExam(uint examId) public view returns (Exam memory) {
+    require(examId <= ExamCount, "Invalid Exam ID");
     return exams[examId];
   }
 }

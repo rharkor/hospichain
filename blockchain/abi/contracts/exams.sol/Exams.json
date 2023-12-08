@@ -5,6 +5,11 @@
         "internalType": "address",
         "name": "roleManagerAddress",
         "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "praticiensAddress",
+        "type": "address"
       }
     ],
     "stateMutability": "nonpayable",
@@ -135,6 +140,57 @@
   {
     "inputs": [
       {
+        "internalType": "uint256",
+        "name": "examId",
+        "type": "uint256"
+      }
+    ],
+    "name": "GetExam",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "string",
+            "name": "speciality",
+            "type": "string"
+          },
+          {
+            "internalType": "string",
+            "name": "exam_type",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "prescriber",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "date",
+            "type": "uint256"
+          },
+          {
+            "internalType": "string",
+            "name": "reason",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "results",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct Exams.Exam",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "components": [
           {
             "internalType": "string",
@@ -175,6 +231,30 @@
     "name": "addExam",
     "outputs": [],
     "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "a",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "b",
+        "type": "string"
+      }
+    ],
+    "name": "compareStrings",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "pure",
     "type": "function"
   },
   {

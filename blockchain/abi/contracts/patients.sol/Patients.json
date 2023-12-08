@@ -10,6 +10,11 @@
         "internalType": "address",
         "name": "praticiensAddress",
         "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "examsAddress",
+        "type": "address"
       }
     ],
     "stateMutability": "nonpayable",

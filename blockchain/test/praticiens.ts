@@ -13,8 +13,8 @@ describe("Praticiens", function () {
     await roleManager.write.addPraticien([praticien1.account.address, "Michel Martin", "mmartin@mail.com"])
     await roleManager.write.addPraticien([praticien2.account.address, "Jeanne Durand", "jdurand@mail.com"])
 
-    const praticiens = await hre.viem.deployContract("Praticiens", [roleManager.address])
-
+    const societies = await hre.viem.deployContract("Societies", [roleManager.address])
+    const praticiens = await hre.viem.deployContract("Praticiens", [roleManager.address, societies.address])
     const publicClient = await hre.viem.getPublicClient()
 
     return {
@@ -37,9 +37,9 @@ describe("Praticiens", function () {
     it("Should have the correct owner", async function () {
       const { praticiens, owner } = await loadFixture(deploy)
 
-      expect(await praticiens.read.hasRole([await praticiens.read.DEFAULT_ADMIN_ROLE(), owner.account.address])).to.equal(
-        true
-      )
+      expect(
+        await praticiens.read.hasRole([await praticiens.read.DEFAULT_ADMIN_ROLE(), owner.account.address])
+      ).to.equal(true)
     })
   })
 
@@ -51,18 +51,18 @@ describe("Praticiens", function () {
         lastnames: "Martin",
         firstnames: "Marcel",
         email: "marcel.martin04@mail.com",
-        society: 12345,
+        society: 0n,
         debut: "12/04/2019",
-        statu: "en activité"
+        statu: "en activité",
       }
 
       await praticiens.write.addPraticien([newPraticien], {
         account: manager1.account.address,
       })
 
-      await expect(praticiens.write.addPraticien([newPraticien], { account: owner.account.address })).to.be.rejectedWith(
-        "Caller is not a manager"
-      )
+      await expect(
+        praticiens.write.addPraticien([newPraticien], { account: owner.account.address })
+      ).to.be.rejectedWith("Caller is not a manager")
     })
   })
 })
